@@ -17,7 +17,7 @@ class Pow(object):
   def run(self):
     nonce = 0
     # print('Mining a new block')
-    while nonce < self.max_nonce:
+    while nonce < Pow.max_nonce:
       prepared_data = self.prepare_data(nonce)
       hash_hex = utils.sum256_hex(prepared_data)
       hash_int = int(hash_hex, 16)

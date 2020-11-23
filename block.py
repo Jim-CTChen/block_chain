@@ -1,5 +1,6 @@
 import time
 import random
+import pickle
 
 import utils
 from pow import Pow
@@ -39,8 +40,17 @@ class Block(object):
     return self._target_bits
 
   def print_transactions(self):
+    print('Transactions: ')
     for trasc in self._transaction:
       print(trasc)
+
+  def print_block(self):
+    print('###############################################################################')
+    print('Block height: {}'.format(self.height))
+    print('Previous hash: {}'.format(self.prev_hash))
+    print('Hash: {}'.format(self.hash))
+    self.print_transactions()
+    print('###############################################################################')
 
   def hash_transactions(self):
     transaction_list = [str for str in self._transaction]
@@ -52,3 +62,9 @@ class Block(object):
     while not pow.validate():
       random.shuffle(self._transaction)
       self._nonce, self._hash = pow.run()
+
+  def serialize(self):
+    return pickle.dumps(self)
+
+  def deserialize(self, data):
+    return pickle.loads(data)
