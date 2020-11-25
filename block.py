@@ -51,14 +51,18 @@ class Block(object):
       print(tx)
 
   def print_block(self):
-    print('###############################################################################')
-    print('Block height : {}'.format(self.height))
-    print('Previous hash: {}'.format(self.prev_hash))
-    print('Hash         : {}'.format(self.hash))
+    print('#####################################################################################')
+    print('Block height      : {}'.format(self.height))
+    print('Previous hash     : {}'.format(self.prev_hash))
+    print('Hash              : {}'.format(self.hash))
+    print('Hash transactions : {}'.format(self.hash_transactions()))
     self.print_transactions()
-    print('###############################################################################')
+    print('#####################################################################################')
 
   def hash_transactions(self):
+    '''
+     get hashed transactions by merkle tree
+    '''
     tx_byte_list = [utils.serialize(tx) for tx in self._transaction]
     merkle_tree = MerkleTree(tx_byte_list)
     return utils.decode(binascii.hexlify(merkle_tree.root_hash))

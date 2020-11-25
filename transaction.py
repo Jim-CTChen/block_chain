@@ -35,6 +35,12 @@ class Transaction(object):
 
 
 class CoinBaseTx(object):
+  '''
+  Coinbase transaction
+
+  Args:
+    address(string): all coinbase reward go to specified address
+  '''
   def __init__(self, address):
     random_address = ''.join(random.choice(
         string.ascii_uppercase + string.digits) for _ in range(20))
@@ -44,7 +50,7 @@ class CoinBaseTx(object):
     self._tx.set_id()
 
   def __repr__(self):
-    return 'Coinbase Transaction\n\tid = {}\n\tvout = {})'.format(self.id, self.vout)
+    return 'Coinbase Transaction\n\tid = {}\n\tvout = {}'.format(self.id, self.vout)
 
   @property
   def id(self):
@@ -94,7 +100,7 @@ class UTXOTx(object):
     self._utxo_set = utxo_set
 
   def __repr__(self):
-    return 'UTXO Transaction\n\tid = {}\n\tvin = {}\n\tvout = {})'.format(self.id, self.vin, self.vout)
+    return 'UTXO Transaction\n\tid = {}\n\tvin = {}\n\tvout = {}'.format(self.id, self.vin, self.vout)
 
   @property
   def id(self):
@@ -110,6 +116,9 @@ class UTXOTx(object):
 
 
 class UTXOSet(object):
+  '''
+  Maintain all UTXOs in current blockchain
+  '''
   db_file = 'block_chain.db'
   bucket = 'utxo'
 

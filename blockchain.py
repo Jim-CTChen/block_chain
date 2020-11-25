@@ -10,7 +10,6 @@ from db import Bucket
 class BlockChain(object):
   bucket = 'blocks'
   db_file = 'block_chain.db'
-  # last_block = 'l'
   genesis_block_data = 'This is a Genesis block!'
 
   def __init__(self, address=None):

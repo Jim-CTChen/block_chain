@@ -70,6 +70,7 @@ def create_blockchain(args):
 def mine_block(args):
   blockchain = BlockChain()
   utxo_set = UTXOSet(blockchain)
+
   utxo_tx = UTXOTx(args.From, args.to, args.amount, utxo_set)
   coin_base_tx = CoinBaseTx(blockchain.address)
   blockchain.add_block([coin_base_tx, utxo_tx])
@@ -89,6 +90,7 @@ def get_balance_by_address(args):
   blockchain = BlockChain()
   utxo_set = UTXOSet(blockchain)
   balance, utxos = utxo_set.find_utxo_by_address(args.address)
+  
   print('balance: {}'.format(balance))
   print('transaction ID with spendable money:')
   for utxo in utxos:

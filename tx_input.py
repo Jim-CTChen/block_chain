@@ -5,7 +5,6 @@ class TXInput(object):
       Txid(int): vout's tx id
       vout_idx(int): idx in tx's vout list
       address(string): giver
-      
   '''
   def __init__(self, txid, vout_idx, address):
     self._Txid = txid
