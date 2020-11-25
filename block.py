@@ -1,8 +1,10 @@
 import time
 import random
 import pickle
+import binascii
 
 import utils
+from merkle_tree import MerkleTree
 from pow import Pow
 
 class Block(object):
@@ -36,25 +38,30 @@ class Block(object):
     return self._prev_hash
 
   @property
+  def transactions(self):
+    return self._transaction
+
+  @property
   def target_bits(self):
     return self._target_bits
 
   def print_transactions(self):
-    print('Transactions: ')
-    for trasc in self._transaction:
-      print(trasc)
+    print('Transactions :')
+    for tx in self._transaction:
+      print(tx)
 
   def print_block(self):
     print('###############################################################################')
-    print('Block height: {}'.format(self.height))
+    print('Block height : {}'.format(self.height))
     print('Previous hash: {}'.format(self.prev_hash))
-    print('Hash: {}'.format(self.hash))
+    print('Hash         : {}'.format(self.hash))
     self.print_transactions()
     print('###############################################################################')
 
   def hash_transactions(self):
-    transaction_list = [str for str in self._transaction]
-    return utils.sum256_hex(utils.encode(''.join(transaction_list)))
+    tx_byte_list = [utils.serialize(tx) for tx in self._transaction]
+    merkle_tree = MerkleTree(tx_byte_list)
+    return utils.decode(binascii.hexlify(merkle_tree.root_hash))
 
   def set_hash(self):
     pow = Pow(self)
