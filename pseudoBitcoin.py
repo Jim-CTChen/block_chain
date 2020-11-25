@@ -60,7 +60,7 @@ def my_parser():
   return parser
 
 def idle(args):
-  print('positional arguments:\n { createblockchain, printchain, printblock, add_block }')
+  print('positional arguments:\n { createblockchain, printchain, printblock, getbalance, send }')
 
 def create_blockchain(args):
   bc = BlockChain(args.address).reset(args.address)
